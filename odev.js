@@ -33,4 +33,40 @@ document.querySelector("#reset").addEventListener("click", () => {
 
 /* START CODING HERE */
 
+const $populationBigger = document.querySelector("#populationBigger");
+$populationBigger.addEventListener("click", function() {
+    const newData = data.filter(item => item.population > 500000);
+    createTableElements(newData, "allcities");
+})
 
+const $landAreaLess = document.querySelector("#landAreaLess");
+$landAreaLess.addEventListener("click", function() {
+    const newData = data.filter(item => item.landArea < 1000);
+    createTableElements(newData, "allcities");
+})
+
+const $isPopulationLess = document.querySelector("#isPopulationLess");
+$isPopulationLess.addEventListener("click", function() {
+    const newData = data.some(item => item.population < 100000);
+    newData ? alert("Yes") : alert("No");
+})
+
+const $isLandBigger = document.querySelector("#isLandBigger");
+$isLandBigger.addEventListener("click", function() {
+    const newData = data.every(item => item.landArea > 100);
+    newData ? alert("Yes") : alert("No");
+})
+
+const $singlecity = document.querySelector("#singlecity");
+const $inputGroupSelect01 = document.querySelector("#inputGroupSelect01");
+data.forEach(item => {
+    const $option = document.createElement("option");
+    $option.textContent = item.name;
+    $option.setAttribute("value", item.name);
+    $inputGroupSelect01.appendChild($option);
+})
+
+$inputGroupSelect01.addEventListener("change", function() {
+    const newData = data.find(item => item.name === this.value);
+    createTableElements([newData], "singlecity")
+})
